@@ -1,0 +1,16 @@
+[Unit]
+Description=%INSTANCE_NAME%-%APP_NAME% MariaDB database server
+After=syslog.target
+
+[Service]
+User=mysql
+Group=mysql
+
+ExecStart=%APP_PATH%/app_scripts/app-scripts.sh
+#ExecStartPost=/usr/bin/mysqld-post
+
+Restart=always
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
