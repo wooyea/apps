@@ -1,6 +1,7 @@
+#!/bin/bash
 ##############################################################################
-# TGGJ common segment. !!! Do not modify !!!
-######TGGJ begin #############################################################
+# APP common segment. !!! Do not modify !!!
+###### APP begin #############################################################
 
 # resolve links - $0 may be a softlink
 PRG="$0"
@@ -18,10 +19,10 @@ done
 export PRG_RELATIVE_DIR=`dirname "$PRG"`
 source $PRG_RELATIVE_DIR/set_env.sh
 
-######TGGJ end ##############################################################
+###### APP end ##############################################################
 start () {
 
-$MARIADB_HOME/bin/mysqld --defaults-file=$MARIADB_CNF \
+$MYSQLD_SAFE_BIN --defaults-file=$MARIADB_CNF \
  --basedir=$MARIADB_HOME \
  --log-error=$MARIADB_ERR_LOG \
  --socket=$MARIADB_SOCKET  \
@@ -68,6 +69,3 @@ case "$1" in
 esac
 
 exit $?
-
-
-

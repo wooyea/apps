@@ -6,7 +6,8 @@
 
 export PRG_DIR=$(cd $PRG_RELATIVE_DIR;pwd)
 export APP_DIR=$(cd $PRG_DIR/..;pwd)
-export APP_NAME=`basename $APP_DIR`
+export APP_DIR_NAME=`basename $APP_DIR`
+export APP_NAME=${APP_DIR_NAME:4}
 
 ###### APP set_env end   #####################################################
 
@@ -15,8 +16,13 @@ export MARIADB_HOME=/data1/common/mariadb-10.1
 export PATH=$MARIADB_HOME/bin:$MARIADB_HOME/sbin:$PATH
 export LD_LIBRARY_PATH=$MARIADB_HOME/lib:$LD_LIBRARY_PATH
 
+export MYSQLD_SAFE_BIN=$MARIADB_HOME/bin/mysqld_safe
+export MYSQL_INSTALL_DB_BIN=$MARIADB_HOME/bin/mysql_install_db
+export MYSQL_CLIENT_BIN=$MARIADB_HOME/bin/mysql
 export MARIADB_DATA_DIR=$APP_DIR/data
-export MARIADB_CNF=$APP_DIR/etc/my.cnf 
+export MARIADB_CNF=$APP_DIR/etc/my.cnf
+
+#PID path must be the same with PIDFile in app_services/mysqld.service-template
 export MARIADB_PID=$APP_DIR/var/mariadb.pid
 
 mkdir -p $APP_DIR/var/

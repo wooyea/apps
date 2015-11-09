@@ -6,7 +6,8 @@
 
 export PRG_DIR=$(cd $PRG_RELATIVE_DIR;pwd)
 export APP_DIR=$(cd $PRG_DIR/..;pwd)
-export APP_NAME=`basename $APP_DIR`
+export APP_DIR_NAME=`basename $APP_DIR`
+export APP_NAME=${APP_DIR_NAME:4}
 
 ###### APP set_env end   #####################################################
 

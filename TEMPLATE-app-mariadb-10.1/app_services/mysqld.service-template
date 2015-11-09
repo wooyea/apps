@@ -3,14 +3,17 @@ Description=%INSTANCE_NAME%-%APP_NAME% MariaDB database server
 After=syslog.target
 
 [Service]
-User=mysql
-Group=mysql
+Type=forking
+User=%RUN_USER%
+Group=%RUN_GROUP%
 
-ExecStart=%APP_PATH%/app_scripts/app-scripts.sh
+PIDFile=%APP_DIR%/var/mariadb.pid
+ExecStart=%APP_DIR%/app_scripts/app_script.sh start
 #ExecStartPost=/usr/bin/mysqld-post
 
-Restart=always
+#Restart=always
 PrivateTmp=true
+LimitNOFILE=infinity
 
 [Install]
 WantedBy=multi-user.target

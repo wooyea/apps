@@ -31,7 +31,6 @@ show_usage () {
 
 get_instance_settings() {
     check_instance
-
 }
 
 init () {
@@ -41,48 +40,67 @@ init () {
     echo "create initance $INSTANCE_NAME"
 
     INSTANCE_FILE=${INSTANCE_PREFIX}${INSTANCE_NAME}
+
     touch $INSTANCE_FILE
+    CURRENT_USER=`whoami`
+    CURRENT_GROUP=`groups | awk '{print $1}'`
+    echo "export RUN_USER=${CURRENT_USER}" >> $INSTANCE_FILE
+    echo "export RUN_GROUP=${CURRENT_GROUP}" >> $INSTANCE_FILE
+    chmod +x $INSTANCE_FILE
 }
 
-gen_services () {
+process_services () {
     check_instance
 
     for DIR in $APP_DIRS
     do
+        echo "==== gen service for $DIR ===="
 
-        APP_PATH=$(cd $DIR;pwd)
-        cd $DIR/app_services
-        rm -f *service
-        APP_NAME=`basename $APP_PATH`
+        APP_DIR=$(cd $DIR;pwd)
 
-        SERVICE_TEMPLATE_FILES=`find ./ -maxdepth 1 -name '*service-template'  `
-        for TEMPLATE_PATH in $SERVICE_TEMPLATE_FILES
-        do
-            TEMPLATE=${TEMPLATE_PATH:2}
-            SERVICE_FILE=${INSTANCE_NAME}_${APP_NAME}_${TEMPLATE:0:-9}
+        case "$1" in
+            gen-services)
 
-            cp $TEMPLATE $SERVICE_FILE
+            cd $DIR/app_services
+            rm -f *service
+            APP_DIR_NAME=`basename $APP_DIR`
+            APP_NAME=${APP_DIR_NAME:4}
 
-            sed -i "s#%APP_PATH%#${APP_PATH}#g"  $SERVICE_FILE
-            sed -i "s#%APP_NAME%#${APP_NAME}#g"  $SERVICE_FILE
-            sed -i "s#%INSTANCE_NAME%#${INSTANCE_NAME}#g"  $SERVICE_FILE
-
-            VARS=`grep -e '${[a-zA-Z0-9_-]*}' $SERVICE_FILE -o`
-            for VAR in $VARS
+            SERVICE_TEMPLATE_FILES=`find ./ -maxdepth 1 -name '*service-template'  `
+            for TEMPLATE_PATH in $SERVICE_TEMPLATE_FILES
             do
-                echo $VAR
-            done
-        done
 
-        cd -
+                TEMPLATE=${TEMPLATE_PATH:2}
+                SERVICE_FILE=${INSTANCE_NAME}_${APP_NAME}_${TEMPLATE:0:-9}
+
+                echo "gen [$SERVICE_FILE]"
+                cp $TEMPLATE $SERVICE_FILE
+
+                sed -i "s#%APP_DIR%#${APP_DIR}#g"  $SERVICE_FILE
+                sed -i "s#%APP_NAME%#${APP_NAME}#g"  $SERVICE_FILE
+                sed -i "s#%RUN_USER%#${RUN_USER}#g"  $SERVICE_FILE
+                sed -i "s#%RUN_GROUP%#${RUN_GROUP}#g"  $SERVICE_FILE
+                sed -i "s#%INSTANCE_NAME%#${INSTANCE_NAME}#g"  $SERVICE_FILE
+
+                # VARS=`grep -e '${[a-zA-Z0-9_-]*}' $SERVICE_FILE -o`
+                # # for VAR in $VARS
+                # do
+                #     #echo $VAR
+                # done
+            done
+            cd -
+            ;;
+            install-services)
+
+            cd $DIR/app_services
+            sudo cp *service /usr/lib/systemd/system/
+            cd -
+            ;;
+
+        esac
     done
 
 
-
-}
-
-install_services () {
-    echo "xxxx"
 
 }
 
@@ -92,10 +110,10 @@ case "$1" in
     init $2
     ;;
     gen-services)
-    gen_services
+    process_services $1
     ;;
     install-services)
-    install_services
+    process_services $1
     ;;
     enable-services)
     install_services
