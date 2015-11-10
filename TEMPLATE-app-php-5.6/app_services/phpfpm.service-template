@@ -1,0 +1,18 @@
+[Unit]
+Description=%INSTANCE_NAME%-%APP_NAME% php-fpm
+After=syslog.target
+
+[Service]
+User=%RUN_USER%
+Group=%RUN_GROUP%
+
+Type=forking
+PIDFile==%APP_DIR%/var/php-fpm.pid
+ExecStart=%APP_DIR%/app_scripts/app_script.sh start
+
+#Restart=always
+PrivateTmp=true
+LimitNOFILE=infinity
+
+[Install]
+WantedBy=multi-user.target
