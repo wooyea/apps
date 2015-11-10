@@ -1,0 +1,7 @@
+*.service
+*log
+*log
+*.log
+*.err
+INSTANCE_*
+php_session
