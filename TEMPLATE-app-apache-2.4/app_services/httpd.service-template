@@ -1,0 +1,24 @@
+[Unit]
+Description=%INSTANCE_NAME%-%APP_NAME% httpd
+After=network.target
+
+[Service]
+Type=forking
+User=%RUN_USER%
+Group=%RUN_GROUP%
+
+PIDFile=%APP_DIR%/var/httpd.pid
+ExecStart=%APP_DIR%/app_scripts/app_script.sh start
+ExecReload=%APP_DIR%/app_scripts/app_script.sh  graceful
+ExecStop=%APP_DIR%/app_scripts/app_script.sh  graceful-stop
+#ExecStop=/bin/kill -WINCH ${MAINPID}
+# We want systemd to give httpd some time to finish gracefully, but still want
+# it to kill httpd after TimeoutStopSec if something went wrong during the
+# graceful stop. Normally, Systemd sends SIGTERM signal right after the
+# ExecStop, which would kill httpd. We are sending useless SIGCONT here to give
+# httpd time to finish.
+#KillSignal=SIGCONT
+journalctl -xe
+
+[Install]
+WantedBy=multi-user.target
