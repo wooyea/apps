@@ -1,0 +1,19 @@
+[Unit]
+Description=%INSTANCE_NAME%-%APP_NAME% nginx
+After=syslog.target
+
+[Service]
+Type=forking
+User=%RUN_USER%
+Group=%RUN_GROUP%
+
+ExecStart=%APP_DIR%/app_scripts/app_script.sh start
+ExecReload=/usr/bin/kill -HUP $MAINPID
+KillSignal=SIGQUIT
+KillMode=mixed
+
+Restart=always
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
