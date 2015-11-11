@@ -60,7 +60,7 @@ ULIMIT_MAX_FILES="ulimit -S -n `ulimit -H -n`"
 
 # check enviroment depented dirs
 [ -d "$APP_DIR/modules" ] || echo "ERROR!!! $APP_DIR/modules not found!" \
-  || "make a soft link name  $APP_DIR/modules linked to modules dir under apache install dir."
+  || "make a soft link name  $APP_DIR/modules linked to modules dir under apache install dir." \
   || exit 1;
 
 
