@@ -58,6 +58,12 @@ ULIMIT_MAX_FILES="ulimit -S -n `ulimit -H -n`"
 # --------------------                              --------------------
 # ||||||||||||||||||||   END CONFIGURATION SECTION  ||||||||||||||||||||
 
+# check enviroment depented dirs
+[ -d "$APP_DIR/modules" ] || echo "ERROR!!! $APP_DIR/modules not found!" \
+  || "make a soft link name  $APP_DIR/modules linked to modules dir under apache install dir."
+  || exit 1;
+
+
 # Set the maximum number of file descriptors allowed per child process.
 if [ "x$ULIMIT_MAX_FILES" != "x" ] ; then
     $ULIMIT_MAX_FILES
