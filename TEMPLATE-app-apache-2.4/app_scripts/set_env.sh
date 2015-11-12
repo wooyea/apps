@@ -16,3 +16,5 @@ export STATUSURL="http://localhost:8088/server-status"
 
 export APACHE_RUN_DIR=$APP_DIR
 export APACHE_CONF=$APP_DIR/conf/httpd.conf
+
+export PHP_INI_SCAN_DIR=/xxx/xxx/app-php-5.6/php.d
