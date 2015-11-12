@@ -13,10 +13,8 @@ export APP_NAME=${APP_DIR_NAME:4}
 
 export MARIADB_HOME=/data1/common/mariadb-10.1
 
-export PATH=$MARIADB_HOME/bin:$MARIADB_HOME/sbin:$PATH
-export LD_LIBRARY_PATH=$MARIADB_HOME/lib:$LD_LIBRARY_PATH
 
-export MYSQLD_SAFE_BIN=$MARIADB_HOME/bin/mysqld_safe
+export MYSQLD_BIN=$MARIADB_HOME/bin/mysqld
 export MYSQL_INSTALL_DB_BIN=$MARIADB_HOME/bin/mysql_install_db
 export MYSQL_CLIENT_BIN=$MARIADB_HOME/bin/mysql
 export MARIADB_DATA_DIR=$APP_DIR/data
@@ -32,3 +30,6 @@ mkdir -p $MARIADB_LOG_DIR
 export MARIADB_ERROR_LOG=$MARIADB_LOG_DIR/mysql.err.log
 
 export MARIADB_STOP_TIMEOUT=60
+
+export PATH=$MARIADB_HOME/bin:$MARIADB_HOME/sbin:$PATH
+export LD_LIBRARY_PATH=$MARIADB_HOME/lib:$LD_LIBRARY_PATH

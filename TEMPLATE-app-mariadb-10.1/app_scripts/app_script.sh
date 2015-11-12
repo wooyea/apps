@@ -22,12 +22,14 @@ source $PRG_RELATIVE_DIR/set_env.sh
 ###### APP end ##############################################################
 start () {
 
-$MYSQLD_SAFE_BIN --defaults-file=$MARIADB_CNF \
- --basedir=$MARIADB_HOME \
- --log-error=$MARIADB_ERR_LOG \
- --socket=$MARIADB_SOCKET  \
- --pid-file=$MARIADB_PID \
- --datadir=$MARIADB_DATA_DIR &
+    $MYSQLD_BIN \
+        --defaults-file=$MARIADB_CNF \
+        --basedir=$MARIADB_HOME \
+        --log-error=$MARIADB_ERR_LOG \
+        --socket=$MARIADB_SOCKET  \
+        --pid-file=$MARIADB_PID \
+        --datadir=$MARIADB_DATA_DIR &
+
 
 }
 

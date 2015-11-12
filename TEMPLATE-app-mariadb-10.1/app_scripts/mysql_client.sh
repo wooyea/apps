@@ -19,4 +19,4 @@ export PRG_RELATIVE_DIR=`dirname "$PRG"`
 source $PRG_RELATIVE_DIR/set_env.sh
 
 ######TGGJ end ##############################################################
-$MYSQL_CLIENT_BIN --defaults-file=/opt/scm/tools/mysql/etc/my.cnf  -S /opt/scm/tools/mysql/var/mysql.sock
+$MYSQL_CLIENT_BIN --defaults-file=$MARIADB_CNF  -S $MARIADB_SOCKET
