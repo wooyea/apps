@@ -15,7 +15,7 @@ export MARIADB_HOME=/data1/common/mariadb-10.1
 
 
 export MYSQLD_BIN=$MARIADB_HOME/bin/mysqld
-export MYSQL_INSTALL_DB_BIN=$MARIADB_HOME/bin/mysql_install_db
+export MYSQL_INSTALL_DB_BIN=$MARIADB_HOME/scripts/mysql_install_db
 export MYSQL_CLIENT_BIN=$MARIADB_HOME/bin/mysql
 export MARIADB_DATA_DIR=$APP_DIR/data
 export MARIADB_CNF=$APP_DIR/etc/my.cnf
