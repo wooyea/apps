@@ -24,7 +24,7 @@ source $PRG_RELATIVE_DIR/set_env.sh
 
 start() {
     $PHP_FPM_BIN --prefix $PHP_RUN_HOME \
-    --fpm-config $PHP_FPM_CONF -c $PHP_RUN_HOME \
+    --fpm-config $PHP_FPM_CONF -c $PHP_INI_DIR \
     --pid $PHP_FPM_PID
 }
 
