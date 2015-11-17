@@ -1,13 +1,11 @@
-SetEnv PHP_INI_SCAN_DIR "/xxxxx/xxxx/apps/app-php-5.6/php.d"
-PHPIniDir "/xxxx/xxxx/apps/app-php-5.6"
 <VirtualHost *:8088>
     ServerAdmin admin@admin.admin
     DocumentRoot "/xxxx/xxxx/apps/php_sites/ecshop/upload"
 #    ServerName www.xxx.com
 #    ServerAlias www.mysite.ccnncc
 #    php_value session.save_path "/xxxx/xxxx/apps/app-apache-2.4/var/ecshop_php_sessions/"
-    ErrorLog "/xxxx/xxxx/apps/app-apache-2.4/logs/ecshop-error.log"
-    CustomLog "/xxxx/xxxx/apps/app-apache-2.4/logs/ecshop-access.log" shop
+    ErrorLog "/xxxx/A_CHANGE/apps/app-apache-2.4/logs/ecshop-error.log"
+    CustomLog "/xxxx/A_CHANGE/apps/app-apache-2.4/logs/ecshop-access.log" shop
 
     <Directory "/xxxx/xxxx/apps/php_sites/ecshop/upload">
         AllowOverride None
