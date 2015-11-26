@@ -25,7 +25,7 @@ start () {
     $MYSQLD_BIN \
         --defaults-file=$MARIADB_CNF \
         --basedir=$MARIADB_HOME \
-        --log-error=$MARIADB_ERR_LOG \
+        --log-error=$MARIADB_ERROR_LOG \
         --socket=$MARIADB_SOCKET  \
         --pid-file=$MARIADB_PID \
         --datadir=$MARIADB_DATA_DIR &

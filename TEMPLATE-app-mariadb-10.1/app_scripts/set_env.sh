@@ -25,7 +25,7 @@ export MARIADB_PID=$APP_DIR/var/mariadb.pid
 
 mkdir -p $APP_DIR/var/
 export MARIADB_SOCKET=$APP_DIR/var/mysql.sock
-export MARIADB_LOG_DIR=/log1/sunbuyer/mariadb
+export MARIADB_LOG_DIR=$APP_DIR/logs
 mkdir -p $MARIADB_LOG_DIR
 export MARIADB_ERROR_LOG=$MARIADB_LOG_DIR/mysql.err.log
 
