@@ -7,7 +7,7 @@ User=%RUN_USER%
 Group=%RUN_GROUP%
 
 Type=forking
-PIDFile=
+PIDFile=%APP_DIR%/var/tomcat-7.pid
 ExecStart=%APP_DIR%/app_scripts/app_script.sh start
 #ExecStartPost=/usr/bin/mysqld-post
 

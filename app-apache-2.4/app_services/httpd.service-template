@@ -9,7 +9,7 @@ Group=%RUN_GROUP%
 
 PIDFile=%APP_DIR%/var/httpd.pid
 ExecStart=%APP_DIR%/app_scripts/app_script.sh start
-ExecReload=%APP_DIR%/app_scripts/app_script.sh  graceful
+#ExecReload=%APP_DIR%/app_scripts/app_script.sh  graceful
 ExecStop=%APP_DIR%/app_scripts/app_script.sh  graceful-stop
 #ExecStop=/bin/kill -WINCH ${MAINPID}
 # We want systemd to give httpd some time to finish gracefully, but still want

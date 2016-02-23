@@ -25,7 +25,7 @@ check_instance () {
 }
 
 show_usage () {
-    echo $"Usage: $0 {init|gen-services|install-services|remove-services}"
+    echo $"Usage: $0 {init|list-services|gen-services|install-services|remove-services}"
 }
 
 
@@ -104,6 +104,17 @@ process_services () {
 
 }
 
+list_services() {
+    check_instance
+    systemctl list-unit-files | grep  $INSTANCE_NAME
+   
+}
+
+state_services() {
+    check_instance
+    systemctl list-units | grep  ^$INSTANCE_NAME
+   
+}
 
 case "$1" in
     init)
@@ -122,7 +133,13 @@ case "$1" in
     install_services
     ;;
     remove-services)
-    install_services
+    remove_services
+    ;;
+    list-services)
+    list_services
+    ;;
+    state-services)
+    state_services
     ;;
     *)
     show_usage
