@@ -1,26 +1,23 @@
 
 INSTANCE_PREFIX=INSTANCE_
 
-INSTANCE_FILE=""
+INSTANCE_FILE="INSTANCE"
 INSTANCE_NAME=""
+LOG_BASE="/data1/log1/"
+APP_PREFIX="app-"
 
 [ $0 == "./apps_util.sh" ] || echo "This script must be named as !!apps_util.sh !!!, and must be runed under apps root dir."
 
-APP_DIRS=`find . -name "app-*" -type d`
+APP_DIRS=`find . -maxdepth 1  -name "app-*" -type d `
 
 
 check_instance () {
     which systemctl 2>&1>/dev/null
     [ $? -eq 0 ] && USE_SYSTEMD=1
 
-    INSTANCE_FILE_COUNT=`find  . -maxdepth 1 -type f -name ${INSTANCE_PREFIX}* 2>/dev/null | wc -l`
-    [ $INSTANCE_FILE_COUNT -eq 0 ] && echo "No instance exist, run ./apps_scripts.sh init {instance_name} first." && exit 1
-    [ $INSTANCE_FILE_COUNT -gt 1 ] && echo "More than one file named with prefix INSTANCE_, pls check first" && exit 1
-    INSTANCE_FILE=`find  . -maxdepth 1 -type f -name ${INSTANCE_PREFIX}*`
-
-    INSTANCE_NAME=${INSTANCE_FILE:11}
-    source $INSTANCE_FILE
-
+    [ -f $INSTANCE_FILE ] && source $INSTANCE_FILE  \
+        || echo "file $INSTANCE_FILE not found, exec 'apps_utils init' first."  \
+        || exit -1;
 
 }
 
@@ -34,19 +31,32 @@ get_instance_settings() {
 }
 
 init () {
-    [ $# != 1 ] && echo "init  {instance_name}" && exit 1
-    INSTANCE_NAME=$1
+    
+    [ $# -lt 4 ] && echo " wrong params! init  instance_name username groupname [path/to/log_base]" && exit 1
+    INSTANCE_NAME=$2
+    
+    [ -f INSTANCE_FILE ] && echo " File $INSTANCE is existed."
 
-    echo "create initance $INSTANCE_NAME"
+    echo "create initance $INSTANCE_NAME for $3:$3"
 
-    INSTANCE_FILE=${INSTANCE_PREFIX}${INSTANCE_NAME}
+#    touch $INSTANCE_FILE
+    RUN_USER=$3
+    RUN_GROUP=$4
+    RUN_USER_ID=`id -u $RUN_USER`
+    RUN_GROUP_ID=`id -g $RUN_GROUP`
+    
+    echo "export RUN_USER=$RUN_USER" >> $INSTANCE_FILE
+    echo "export RUN_USER_ID=${RUN_USER_ID}" >> $INSTANCE_FILE
+    echo "export RUN_GROUP=$RUN_GROUP" >> $INSTANCE_FILE
+    echo "export RUN_GROUP_ID=${RUN_GROUP_ID}" >> $INSTANCE_FILE
+    echo "export INSTANCE_NAME=${INSTANCE_NAME}" >> $INSTANCE_FILE
+    [ $# -ge 6 ] && export LOG_BASE=$5
+    echo "export LOG_BASE=${LOG_BASE}" >> $INSTANCE_FILE
 
-    touch $INSTANCE_FILE
-    CURRENT_USER=`whoami`
-    CURRENT_GROUP=`groups | awk '{print $1}'`
-    echo "export RUN_USER=${CURRENT_USER}" >> $INSTANCE_FILE
-    echo "export RUN_GROUP=${CURRENT_GROUP}" >> $INSTANCE_FILE
     chmod +x $INSTANCE_FILE
+    mkdir -p db_data
+    mkdir -p websites
+    sudo chown $RUN_USER:$RUN_GROUP app_* db_data websites -R
 }
 
 process_services () {
@@ -118,7 +128,7 @@ state_services() {
 
 case "$1" in
     init)
-    init $2
+    init $*
     ;;
     gen-services)
     process_services $1
