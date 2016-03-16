@@ -18,7 +18,12 @@ FUNCTION_TO_CALL=$1
 
 for FUN in $APP_FUNCTIONS
 do
-    [ "$FUN" = "$FUNCTION_TO_CALL" ] && echo "call $FUNCTION_TO_CALL..." && eval app_$FUNCTION_TO_CALL $@ 
+    if [ "$FUN" = "$FUNCTION_TO_CALL" ]
+    then 
+        echo "call $FUNCTION_TO_CALL..." 
+        eval app_$FUNCTION_TO_CALL $@
+        exit
+    fi
 done
 
 echo "Wrong parameters"
