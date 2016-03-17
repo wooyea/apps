@@ -3,5 +3,5 @@
 *log
 *.log
 *.err
-INSTANCE_*
+INSTANCE
 php_session
