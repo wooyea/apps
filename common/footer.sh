@@ -20,7 +20,8 @@ for FUN in $APP_FUNCTIONS
 do
     if [ "$FUN" = "$FUNCTION_TO_CALL" ]
     then 
-        echo "call $FUNCTION_TO_CALL..." 
+        echo "call $FUNCTION_TO_CALL..."
+        app_env_init
         eval app_$FUNCTION_TO_CALL $@
         exit
     fi
