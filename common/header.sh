@@ -23,3 +23,8 @@ APP_TYPE_COMMON_SCRIPT=$APPS_DIR/common/${APP_TYPE}_common.sh
 SET_ENV_FILE=$PRG_RELATIVE_DIR/set_env.sh
 [ -f $SET_ENV_FILE ] && source $SET_ENV_FILE
 
+
+su_run() {
+    [ "$RUN_USER" = "`whoami`" ] && eval $1 || echo " su to $RUN_USER than run $1" \
+        || su - $RUN_USER -c "$1"  
+}
