@@ -23,7 +23,7 @@ source $PRG_RELATIVE_DIR/../../common/header.sh
 
 app_init() {
     
-    [ -d $DATA_DIR ] || mkdir $DATA_DIR  || sudo chown $RUN_USER:$RUN_GROUP $DATA_DIR 
+    [ -d $DATA_DIR ] || su_run "mkdir -p $DATA_DIR" 
 
     docker create --net=host                    \
         --name $DOCKER_CONTAINER_NAME           \
