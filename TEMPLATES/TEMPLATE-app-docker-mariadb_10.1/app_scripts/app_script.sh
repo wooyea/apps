@@ -35,7 +35,7 @@ app_init() {
         -e MYSQL_ROOT_PASSWORD=$ROOT_PASSWORD   \
         --oom-kill-disable                      \
         --restart=always                        \
-        tggj/mariadb:10.1
+        registry.aliyuncs.com/wql/mariadb:10.1
         
 }
 
