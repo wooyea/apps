@@ -56,7 +56,7 @@ init () {
     chmod +x $INSTANCE_FILE
     mkdir -p db_data
     mkdir -p websites
-    sudo chown $RUN_USER:$RUN_GROUP app_* db_data websites -R
+    sudo chown $RUN_USER:$RUN_GROUP db_data websites -R
 }
 
 process_services () {
