@@ -4,4 +4,5 @@
 *.log
 *.err
 INSTANCE
-php_session
+*php_session
+*.pid
