@@ -13,6 +13,10 @@ app_stop() {
     docker stop $DOCKER_CONTAINER_NAME
 }
 
+app_restart() {
+    docker restart $DOCKER_CONTAINER_NAME
+}
+
 app_kill() {
     docker kill $DOCKER_CONTAINER_NAME
 }
