@@ -25,6 +25,11 @@ SET_ENV_FILE=$PRG_RELATIVE_DIR/set_env.sh
 
 
 su_run() {
-    [ "$RUN_USER" = "`whoami`" ] && eval $1 || echo " su to $RUN_USER than run $1" \
-         || `su - $RUN_USER -c $1`
+    if [ "$RUN_USER" = "`whoami`" ]; then
+        eval $1
+    else
+        echo " su to $RUN_USER than run $1" 
+        cmd="su - $RUN_USER -c \"$1\""
+        eval $cmd
+    fi
 }

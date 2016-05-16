@@ -35,7 +35,7 @@ init () {
     [ $# -lt 4 ] && echo " wrong params! init  instance_name username groupname [path/to/log_base]" && exit 1
     INSTANCE_NAME=$2
     
-    [ -f INSTANCE_FILE ] && echo " File $INSTANCE is existed."
+    [ -f $INSTANCE_FILE ] && echo " File $INSTANCE_FILE is existed." &&  mv $INSTANCE_FILE ${INSTANCE_FILE}_bak_`date +%Y%m%d_%H%M%S`
 
     echo "create initance $INSTANCE_NAME for $3:$3"
 
@@ -45,6 +45,7 @@ init () {
     RUN_USER_ID=`id -u $RUN_USER`
     RUN_GROUP_ID=`id -g $RUN_GROUP`
     
+    echo "#****** INSTANCE begin ******" >> $INSTANCE_FILE
     echo "export RUN_USER=$RUN_USER" >> $INSTANCE_FILE
     echo "export RUN_USER_ID=${RUN_USER_ID}" >> $INSTANCE_FILE
     echo "export RUN_GROUP=$RUN_GROUP" >> $INSTANCE_FILE
@@ -52,6 +53,7 @@ init () {
     echo "export INSTANCE_NAME=${INSTANCE_NAME}" >> $INSTANCE_FILE
     [ $# -ge 6 ] && export LOG_BASE=$5
     echo "export LOG_BASE=${LOG_BASE}" >> $INSTANCE_FILE
+    echo "#****** INSTANCE end ******" >> $INSTANCE_FILE
 
     chmod +x $INSTANCE_FILE
     mkdir -p db_data
@@ -130,6 +132,13 @@ state_services() {
    
 }
 
+chown_files() {
+    check_instance
+    source  ./INSTANCE
+    sudo chown $RUN_USER:$RUN_GROUP -R $2
+   
+}
+
 case "$1" in
     init)
     init $*
@@ -154,6 +163,9 @@ case "$1" in
     ;;
     state-services)
     state_services
+    ;;
+    chown)
+    chown_files $*
     ;;
     *)
     show_usage
