@@ -4,6 +4,7 @@ INSTANCE_PREFIX=INSTANCE_
 INSTANCE_FILE="INSTANCE"
 INSTANCE_NAME=""
 LOG_BASE="/data1/log1/"
+DOCKER_TZ=Asia/Shanghai
 APP_PREFIX="app-"
 
 [ $0 == "./apps_util.sh" ] || echo "This script must be named as !!apps_util.sh !!!, and must be runed under apps root dir."
@@ -32,7 +33,7 @@ get_instance_settings() {
 
 init () {
     
-    [ $# -lt 4 ] && echo " wrong params! init  instance_name username groupname [path/to/log_base]" && exit 1
+    [ $# -lt 4 ] && echo " wrong params! init  instance_name username groupname [path/to/log_base(/data1/log1)] [TZ(Asia/Shanghai)] " && exit 1
     INSTANCE_NAME=$2
     
     [ -f $INSTANCE_FILE ] && echo " File $INSTANCE_FILE is existed." &&  mv $INSTANCE_FILE ${INSTANCE_FILE}_bak_`date +%Y%m%d_%H%M%S`
@@ -53,6 +54,8 @@ init () {
     echo "export INSTANCE_NAME=${INSTANCE_NAME}" >> $INSTANCE_FILE
     [ $# -ge 6 ] && export LOG_BASE=$5
     echo "export LOG_BASE=${LOG_BASE}" >> $INSTANCE_FILE
+    [ $# -ge 7 ] && export DOCKER_TZ=$6
+    echo "export DOCKER_TZ=${DOCKER_TZ}" >> $INSTANCE_FILE
     echo "#****** INSTANCE end ******" >> $INSTANCE_FILE
 
     chmod +x $INSTANCE_FILE

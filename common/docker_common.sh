@@ -5,6 +5,8 @@ app_env_init() {
     [ -d $APP_LOG_DIR ] || su_run "mkdir -p $APP_LOG_DIR"
 }
 
+export APP_INIT_OPTS=" -e TZ=${DOCKER_TZ} "
+
 app_start() {
     docker start $DOCKER_CONTAINER_NAME
 }
