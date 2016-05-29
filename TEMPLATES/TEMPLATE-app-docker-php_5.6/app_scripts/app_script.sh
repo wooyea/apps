@@ -31,6 +31,7 @@ source $PRG_RELATIVE_DIR/../../common/header.sh
 #        -v ${APP_DIR}/var/apache2:/var/apache2 \
 #        -v ${APP_DIR}/var/php_session:/var/php_session \
 #        -v ${APP_LOG_DIR}:/log1 \
+#        $APP_INIT_OPTS \
 #        --restart=always \
 #        registry.aliyuncs.com/wql/php:5.6 apache2-foreground
 
@@ -45,6 +46,7 @@ source $PRG_RELATIVE_DIR/../../common/header.sh
 #        -v ${APP_DIR}/var/apache2:/var/apache2 \
 #        -v ${APP_DIR}/var/php_session:/var/php_session \
 #        -v ${APP_LOG_DIR}:/log1 \
+#        $APP_INIT_OPTS \
 #        --restart=always \
 #        registry.aliyuncs.com/wql/php:5.6 apache2-foreground
 
@@ -60,6 +62,7 @@ app_init() {
         -v ${APP_DIR}/var/apache2:/var/apache2 \
         -v ${APP_DIR}/var/php_session:/var/php_session \
         -v ${APP_LOG_DIR}:/log1 \
+        $APP_INIT_OPTS \
         --restart=always \
         registry.aliyuncs.com/wql/php:5.6 apache2-foreground
 

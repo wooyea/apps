@@ -23,7 +23,13 @@ source $PRG_RELATIVE_DIR/set_env.sh
 ###### APPS end ##############################################################
 
 init() {
-   docker create --net=host -u $RUN_USER_ID:$RUN_GROUP_ID --name $DOCKER_CONTAINER_NAME -v ${APP_DIR}/etc/nginx:/etc/nginx  -v ${APP_DIR}/var:/var -v ${APP_DIR}/log:/log1 nginx:1.9
+   docker create --net=host -u $RUN_USER_ID:$RUN_GROUP_ID \
+   --name $DOCKER_CONTAINER_NAME \
+   -v ${APP_DIR}/etc/nginx:/etc/nginx  \
+   -v ${APP_DIR}/var:/var \
+   -v ${APP_DIR}/log:/log1 \
+   $APP_INIT_OPTS \
+   nginx:1.9
 }
 
 start() {
