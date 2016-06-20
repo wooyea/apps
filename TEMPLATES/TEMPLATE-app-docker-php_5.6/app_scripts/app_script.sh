@@ -68,6 +68,10 @@ app_init() {
 
 }
 
+app_check() {
+    docker exec $DOCKER_CONTAINER_NAME  apache2 -t
+}
+
 ##############################################################################
 # APPS common footer segment. !!! Do not modify !!!
 ###### APPS footer begin #####################################################
