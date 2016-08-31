@@ -34,3 +34,7 @@ app_log() {
 app_status() {
     docker stats $DOCKER_CONTAINER_NAME
 }
+
+app_shell() {
+    docker exec -it $DOCKER_CONTAINER_NAME /bin/bash
+}
