@@ -1,5 +1,7 @@
 FROM ruby:2.2-slim
 
+ADD sources.list.jessie /etc/apt/sources.list
+
 # grab gosu for easy step-down from root
 ENV GOSU_VERSION 1.7
 RUN set -x \
