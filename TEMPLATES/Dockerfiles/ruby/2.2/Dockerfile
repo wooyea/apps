@@ -1,6 +1,8 @@
 FROM ruby:2.2-slim
 
 ADD sources.list.jessie /etc/apt/sources.list
+
+ADD gosu-amd64_1.7 /usr/local/bin/gosu
 RUN chmod +x /usr/local/bin/gosu \
 	&& gosu nobody true
 
