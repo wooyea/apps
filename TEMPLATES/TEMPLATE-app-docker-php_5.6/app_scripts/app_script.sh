@@ -27,7 +27,7 @@ source $PRG_RELATIVE_DIR/../../common/header.sh
 #        --net=host -u $RUN_USER_ID:$RUN_GROUP_ID \
 #        -v ${APP_DIR}/etc/apache2:/etc/apache2 \
 #        -v ${APP_DIR}/etc:/usr/local/etc \
-#        -v ${APP_DIR}/../websites:/var/websites \
+#        -v ${APP_DIR}/../deploy:/var/deploy \
 #        -v ${APP_DIR}/var/apache2:/var/apache2 \
 #        -v ${APP_DIR}/var/php_session:/var/php_session \
 #        -v ${APP_LOG_DIR}:/log1 \
@@ -42,7 +42,7 @@ source $PRG_RELATIVE_DIR/../../common/header.sh
 #        --cap-add net_bind_service \
 #        -v ${APP_DIR}/etc/apache2:/etc/apache2 \
 #        -v ${APP_DIR}/etc:/usr/local/etc \
-#        -v ${APP_DIR}/../websites:/var/websites \
+#        -v ${APP_DIR}/../deploy:/var/deploy \
 #        -v ${APP_DIR}/var/apache2:/var/apache2 \
 #        -v ${APP_DIR}/var/php_session:/var/php_session \
 #        -v ${APP_LOG_DIR}:/log1 \
@@ -58,7 +58,7 @@ app_init() {
         --cap-add net_bind_service \
         -v ${APP_DIR}/etc/apache2:/etc/apache2 \
         -v ${APP_DIR}/etc:/usr/local/etc \
-        -v ${APP_DIR}/../websites:/var/websites \
+        -v ${APP_DIR}/../deploy:/var/deploy \
         -v ${APP_DIR}/var/apache2:/var/apache2 \
         -v ${APP_DIR}/var/php_session:/var/php_session \
         -v ${APP_LOG_DIR}:/log1 \

@@ -60,8 +60,8 @@ init () {
 
     chmod +x $INSTANCE_FILE
     mkdir -p db_data
-    mkdir -p websites
-    sudo chown $RUN_USER:$RUN_GROUP apps_util.sh  common  db_data  INSTANCE  readme.txt  TEMPLATES  websites -R
+    mkdir -p deploy
+    sudo chown $RUN_USER:$RUN_GROUP apps_util.sh  common  db_data  INSTANCE  readme.txt  TEMPLATES  deploy -R
     
     export INSTANCE_LOG_DIR=$LOG_BASE/$INSTANCE_NAME
     mkdir -p $INSTANCE_LOG_DIR
