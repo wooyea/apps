@@ -1,49 +1,23 @@
-FROM ruby:2.2-slim
+FROM woo/ruby:2.2-base
+
+ENV RAILS_ENV production
+ENV PASSENGER_VERSION 5.0.30
+ENV WORK_DIR /usr/workdir
+ENV BUNDLE_PATH ${WORK_DIR}/vendor/bundle
 
 ADD sources.list.jessie /etc/apt/sources.list
 
-ADD gosu-amd64_1.7 /usr/local/bin/gosu
-RUN chmod +x /usr/local/bin/gosu \
-	&& gosu nobody true
 
-ADD tini_0.9.0 /usr/local/bin/tini
-ENV TINI_VERSION v0.9.0
-RUN chmod +x /usr/local/bin/tini \
-	&& tini -h
+WORKDIR $WORK_DIR
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-		imagemagick \
-		libmysqlclient18 \
-		libpq5 \
-		libsqlite3-0 \
-		\
-		bzr \
-		git \
-		mercurial \
-		openssh-client \
-		subversion \
-	&& rm -rf /var/lib/apt/lists/*
-
-ENV RAILS_ENV production
-WORKDIR /usr/workdir
-
-RUN buildDeps='\
-		gcc \
-		libmagickcore-dev \
-		libmagickwand-dev \
-		libmysqlclient-dev \
-		libpq-dev \
-		libsqlite3-dev \
-		make \
-		patch \
-	' \
-	&& set -ex \
-	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
-	&& rm -rf /var/lib/apt/lists/*
-
+RUN set -ex \
+	&& gem install -s "https://gems.ruby-china.org" passenger --version "$PASSENGER_VERSION"
 
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 3000
+CMD ["passenger", "start"]
 CMD ["rails", "server", "-b", "0.0.0.0"]
+
+

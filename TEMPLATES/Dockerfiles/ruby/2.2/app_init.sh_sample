@@ -1,0 +1,24 @@
+case "$1" in
+    rails|rake|passenger)
+
+        # ensure the right database adapter is active in the Gemfile.lock
+        bundle install --path vendor/bundle --without development test
+
+
+        if [ ! -s config/secrets.yml ]; then
+            if [ "$REDMINE_SECRET_KEY_BASE" ]; then
+                cat > 'config/secrets.yml' <<-YML
+                $RAILS_ENV:
+                secret_key_base: "$REDMINE_SECRET_KEY_BASE"
+                YML
+            elif [ ! -f /usr/workdir/config/initializers/secret_token.rb ]; then
+                rake generate_secret_token
+            fi  
+        fi  
+
+        if [ "$1" != 'rake' -a -z "$REDMINE_NO_DB_MIGRATE" ]; then
+            rake db:migrate
+        fi  
+        ;;  
+esac
+
