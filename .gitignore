@@ -6,5 +6,5 @@
 INSTANCE
 *php_session
 *.pid
-
-*.swp
+.vscode
+*swp
