@@ -1,15 +1,15 @@
 #!/bin/bash
 
 ##############################################################################
-# TGGJ set_env common segment. !!! Do not modify !!!
-######TGGJ set_env begin #####################################################
+# APPS set_env common segment. !!! Do not modify !!!
+######APPS set_env begin #####################################################
 
 export PRG_DIR=$(cd $PRG_RELATIVE_DIR;pwd)
 export APP_DIR=$(cd $PRG_DIR/..;pwd)
 export APP_DIR_NAME=`basename $APP_DIR`
 export APP_NAME=${APP_DIR_NAME:4}
 
-######TGGJ set_env end   #####################################################
+######APPS set_env end   #####################################################
 
 export PHP_HOME=/usr #A_CHECK
 export PHP_RUN_HOME=$APP_DIR

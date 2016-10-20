@@ -1,4 +1,4 @@
-FROM woo/ruby:2.2-base
+FROM apps/ruby:2.2-base
 
 ENV RAILS_ENV production
 ENV PASSENGER_VERSION 5.0.30

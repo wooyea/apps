@@ -30,7 +30,7 @@ app_init() {
         -v ${APP_DIR}/../deploy/redmine:/usr/workdir \
         -v ${APP_LOG_DIR}:/usr/workdir/log \
         -e RAILS_ENV=production \
-        woo/ruby:2.2
+        apps/ruby:2.2
 
         #--restart=always \
 #

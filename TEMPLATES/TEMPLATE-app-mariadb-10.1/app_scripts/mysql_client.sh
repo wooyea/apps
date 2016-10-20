@@ -1,6 +1,6 @@
 ##############################################################################
-# TGGJ common segment. !!! Do not modify !!!
-######TGGJ begin #############################################################
+# APPS common segment. !!! Do not modify !!!
+######APPS begin #############################################################
 
 # resolve links - $0 may be a softlink
 PRG="$0"
@@ -18,5 +18,5 @@ done
 export PRG_RELATIVE_DIR=`dirname "$PRG"`
 source $PRG_RELATIVE_DIR/set_env.sh
 
-######TGGJ end ##############################################################
+######APPS end ##############################################################
 $MYSQL_CLIENT_BIN --defaults-file=$MARIADB_CNF  -S $MARIADB_SOCKET

@@ -4,6 +4,6 @@ ping mirrors.aliyuncs.com -c 2
 [ $? -eq 0 ] && cp ../../common/sources.list.jessie-aliyun sources.list.jessie \
     || cp ../../common/sources.list.jessie-163 sources.list.jessie
 
-docker build -t tggj/php:5.6 ./
+docker build -t apps/php:5.6 ./
 
 rm sources.list.jessie
