@@ -30,12 +30,21 @@ app_init() {
         -v ${APP_DIR}/../deploy/redmine:/usr/workdir \
         -v ${APP_LOG_DIR}:/usr/workdir/log \
         -e RAILS_ENV=production \
-        apps/ruby:2.2
+        woo/ruby:2.2
 
         #--restart=always \
 #
-#        -u $RUN_USER_ID:$RUN_GROUP_ID \
+# FIXME: wooyea may have proble while use none 
+#        -u $RUN_USER_ID:$RUN_GROUP_ID \  
 
+}
+
+#app_start() {
+#    docker run -d --name some-redmine --link some-postgres:postgres redmine
+#}
+
+app_check() {
+    docker exec $DOCKER_CONTAINER_NAME  apache2 -t
 }
 
 ##############################################################################
