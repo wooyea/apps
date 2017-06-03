@@ -17,6 +17,18 @@ IFS=$OLD_IFS
 export APP_LOG_DIR=$LOG_BASE/$INSTANCE_NAME/$APP_TYPE-$APP_NAME/
 
 
+get_ip() {
+    local  __resultvar=$2
+    local  myresult=`ifconfig $1 | awk '/inet /{print $2}'`
+    if [[ "$__resultvar" ]]; then
+        eval $__resultvar="'$myresult'"
+    fi
+}
+get_ip $MAIN_IF_NAME MAIN_IP
+
+export APP_LOG_DIR=$LOG_BASE/$INSTANCE_NAME/$APP_TYPE-$APP_NAME/
+
+
 APP_TYPE_COMMON_SCRIPT=$APPS_DIR/common/${APP_TYPE}_common.sh
 [ -f $APP_TYPE_COMMON_SCRIPT ] && source $APP_TYPE_COMMON_SCRIPT
 

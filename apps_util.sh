@@ -33,7 +33,7 @@ get_instance_settings() {
 
 init () {
     
-    [ $# -lt 4 ] && echo " wrong params! init  instance_name username groupname [path/to/log_base(/data1/log1)] [TZ(Asia/Shanghai)] " && exit 1
+    [ $# -lt 4 ] && echo " wrong params! init  instance_name username groupname main_if_name [path/to/log_base(/data1/log1)] [TZ(Asia/Shanghai)] " && exit 1
     INSTANCE_NAME=$2
     
     [ -f $INSTANCE_FILE ] && echo " File $INSTANCE_FILE is existed." &&  mv $INSTANCE_FILE ${INSTANCE_FILE}_bak_`date +%Y%m%d_%H%M%S`
@@ -46,6 +46,8 @@ init () {
     RUN_USER_ID=`id -u $RUN_USER`
     RUN_GROUP_ID=`id -g $RUN_GROUP`
     
+    MAIN_IF_NAME=$5
+
     echo "#****** INSTANCE begin ******" >> $INSTANCE_FILE
     echo "export RUN_USER=$RUN_USER" >> $INSTANCE_FILE
     echo "export RUN_USER_ID=${RUN_USER_ID}" >> $INSTANCE_FILE
@@ -56,6 +58,7 @@ init () {
     echo "export LOG_BASE=${LOG_BASE}" >> $INSTANCE_FILE
     [ $# -ge 7 ] && export DOCKER_TZ=$6
     echo "export DOCKER_TZ=${DOCKER_TZ}" >> $INSTANCE_FILE
+    echo "export MAIN_IF_NAME=${MAIN_IF_NAME}" >> $INSTANCE_FILE
     echo "#****** INSTANCE end ******" >> $INSTANCE_FILE
 
     chmod +x $INSTANCE_FILE
