@@ -1,0 +1,14 @@
+appscript.sh client
+
+use mysql
+
+CREATE USER 'monitor'@'%' IDENTIFIED BY 'admin';
+
+flush privileges;
+
+
+
+
+CREATE USER 'monitor'@'%' IDENTIFIED BY 'admin';
+
+GRANT ALL PRIVILEGES ON *.* TO 'monitor'@'%' IDENTIFIED BY 'admin'WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;
