@@ -36,7 +36,7 @@ app_init() {
         -v ${APP_LOG_DIR}:/log1                 \
         -v ${GERRIT_DEPLOY_HOST}:/usr/src/myapp \
         $APP_INIT_OPTS                          \
-        openjdk:8u102-jdk java -jar /usr/src/myapp/gerrit_app/bin/gerrit.war daemon \
+        openjdk:8-jdk java -jar /usr/src/myapp/gerrit_app/bin/gerrit.war daemon \
 	-d /usr/src/myapp/gerrit_app 
 }
 
