@@ -54,9 +54,9 @@ init () {
     echo "export RUN_GROUP=$RUN_GROUP" >> $INSTANCE_FILE
     echo "export RUN_GROUP_ID=${RUN_GROUP_ID}" >> $INSTANCE_FILE
     echo "export INSTANCE_NAME=${INSTANCE_NAME}" >> $INSTANCE_FILE
-    [ $# -ge 6 ] && export LOG_BASE=$5
+    [ $# -ge 6 ] && export LOG_BASE=$6
     echo "export LOG_BASE=${LOG_BASE}" >> $INSTANCE_FILE
-    [ $# -ge 7 ] && export DOCKER_TZ=$6
+    [ $# -ge 7 ] && export DOCKER_TZ=$7
     echo "export DOCKER_TZ=${DOCKER_TZ}" >> $INSTANCE_FILE
     echo "export MAIN_IF_NAME=${MAIN_IF_NAME}" >> $INSTANCE_FILE
     echo "#****** INSTANCE end ******" >> $INSTANCE_FILE
@@ -67,7 +67,8 @@ init () {
     sudo chown $RUN_USER:$RUN_GROUP apps_util.sh  common  db_data  INSTANCE  readme.txt  TEMPLATES  deploy -R
     
     export INSTANCE_LOG_DIR=$LOG_BASE/$INSTANCE_NAME
-    mkdir -p $INSTANCE_LOG_DIR
+    echo "create logdir $INSTANCE_LOG_DIR for $3:$4"
+    sudo mkdir -p $INSTANCE_LOG_DIR
     sudo chown $RUN_USER:$RUN_GROUP $INSTANCE_LOG_DIR
 }
 
