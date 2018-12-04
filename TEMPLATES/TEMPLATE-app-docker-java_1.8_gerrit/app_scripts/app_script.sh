@@ -23,7 +23,7 @@ source $PRG_RELATIVE_DIR/../../common/header.sh
 
 su_run "mkdir -p ${GERRIT_APP_HOST}"
 
-export GERRIT_WAR_HOST=${GERRIT_DEPLOY_HOST}/${GERRIT_WAR}
+GERRIT_WAR_HOST=${GERRIT_DEPLOY_HOST}/${GERRIT_WAR}
 [ -f "$GERRIT_WAR_HOST" ] || echo "$GERRIT_WAR_HOST not found" || exit
 chcon -Rt svirt_sandbox_file_t $GERRIT_WAR_HOST
 
