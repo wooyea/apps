@@ -18,12 +18,24 @@ export APP_LOG_DIR=$LOG_BASE/$INSTANCE_NAME/$APP_TYPE-$APP_NAME/
 
 
 get_ip() {
+
     local  __resultvar=$2
-    local  myresult=`ifconfig $1 | awk '/inet /{print $2}'`
+    local myresult=""
+
+    if type "ip" > /dev/null; then
+        myresult=`ip address show $1 | grep -Po 'inet \K[\d.]+'`
+    elif type "ifconfig" > /dev/null; then
+        myresult=`ifconfig $1 | awk '/inet /{print $2}'`
+    else
+        echo "cannot deteck ip address of $1"
+    fi
+
     if [[ "$__resultvar" ]]; then
         eval $__resultvar="'$myresult'"
     fi
+
 }
+
 get_ip $MAIN_IF_NAME MAIN_IP
 
 export APP_LOG_DIR=$LOG_BASE/$INSTANCE_NAME/$APP_TYPE-$APP_NAME/
