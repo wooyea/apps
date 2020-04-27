@@ -64,7 +64,7 @@ app_init() {
         -v ${APP_LOG_DIR}:/log1 \
         $APP_INIT_OPTS \
         --restart=always \
-        registry.aliyuncs.com/wql/php:5.6 apache2-foreground
+        apps/php:5.6 apache2-foreground
 
 }
 
