@@ -27,29 +27,30 @@ app_init() {
    # run as host root
    export RUN_USER_ID=`id -u root`
    export RUN_GROUP_ID=`id -g root`
-   su_run "mkdir -p $APP_DIR/var/cache/nginx"
+   export VAR_HOST=$APP_DIR/var
+   su_run "mkdir -p ${VAR_HOST}/log/nginx"
+   su_run "mkdir -p ${VAR_HOST}/cache/nginx/client_temp"
 
    docker create --net=host \
    --name $DOCKER_CONTAINER_NAME \
+   --restart=always \
    -v ${APP_DIR}/etc/nginx:/etc/nginx  \
    -v ${APP_DIR}/../deploy/nginx:/usr/share/nginx  \
+   -v ${APP_DIR}/../deploy/nginx/mirrors:/usr/share/mirrors/  \
    -v ${APP_LOG_DIR}:/log1 \
-   -v ${APP_DIR}/var:/var \
+   -v ${VAR_HOST}:/var \
    $APP_INIT_OPTS \
-   nginx:1.9 nginx -g "daemon off;"
-
-
-   # run as host non-root user
-   #docker create --net=host -u $RUN_USER_ID:$RUN_GROUP_ID \
-   #--name $DOCKER_CONTAINER_NAME \
-   #-v ${APP_DIR}/etc/nginx:/etc/nginx  \
-   #-v ${APP_LOG_DIR}:/log1 \
-   #-v ${APP_DIR}/var:/var \
-   #$APP_INIT_OPTS \
-   #nginx:1.9 nginx -g "daemon off;"
+   nginx:1.15 nginx -g "daemon off;"
 
 }
 
+app_test() {
+  docker exec -it $DOCKER_CONTAINER_NAME  bash -c '/usr/sbin/nginx -t'
+}
+
+app_reload() {
+  docker exec -it $DOCKER_CONTAINER_NAME  bash -c '/usr/sbin/nginx -s reload'
+}
 ##############################################################################
 # APPS common footer segment. !!! Do not modify !!!
 ###### APPS footer begin #####################################################
