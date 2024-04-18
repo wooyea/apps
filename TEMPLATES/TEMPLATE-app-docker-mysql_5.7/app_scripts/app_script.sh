@@ -30,13 +30,15 @@ app_init() {
         -u $RUN_USER_ID:$RUN_GROUP_ID           \
         -v ${APP_LOG_DIR}:/log1                 \
         -v ${APP_DIR}/var/mysqld:/var/mysqld    \
+        -v ${APP_DIR}/etc/my.cnf:/etc/my.cnf    \
+        -v ${APP_DIR}/etc/my.cnf.d:/etc/my.cnf.d    \
         -v ${APP_DIR}/etc/mysql:/etc/mysql      \
         -v ${DATA_DIR}:/var/lib/mysql           \
         -e MYSQL_ROOT_PASSWORD=$ROOT_PASSWORD   \
         --oom-kill-disable                      \
         --restart=always                        \
         $APP_INIT_OPTS                         \
-        mysql:5.7
+        mysql:5.7.44
         
 }
 
@@ -44,6 +46,9 @@ app_client() {
     docker exec -it $DOCKER_CONTAINER_NAME  bash -c 'export TERM=xterm; mysql --defaults-file=/etc/mysql/my.cnf -S /var/mysqld/mysqld.sock -u root -p'
 }
 
+app_client2() {
+    docker exec -it $DOCKER_CONTAINER_NAME  bash -c 'export TERM=xterm; mysql -h 127.0.0.1 -u root -p'
+}
 
 ##############################################################################
 # APPS common footer segment. !!! Do not modify !!!
